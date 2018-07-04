@@ -11,7 +11,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 		4, -1,
 		0, 5,
 	})
-	if x1.rowCount != rowCount1 || x1.colCount != colCount1 {
+	if x1.RowCount != rowCount1 || x1.ColCount != colCount1 {
 		t.Errorf("row or col count was wrong")
 	}
 
@@ -21,7 +21,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 		1,
 		2,
 	})
-	if x2.rowCount != rowCount2 || x2.colCount != colCount2 {
+	if x2.RowCount != rowCount2 || x2.ColCount != colCount2 {
 		t.Errorf("row or col count was wrong")
 	}
 
@@ -30,7 +30,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 	x3, _ := NewMatrix(rowCount3, colCount3, []float64{
 		1, 2,
 	})
-	if x3.rowCount != rowCount3 || x3.colCount != colCount3 {
+	if x3.RowCount != rowCount3 || x3.ColCount != colCount3 {
 		t.Errorf("row or col count was wrong")
 	}
 }
