@@ -1,20 +1,24 @@
+// Package matrix implements a simple library for matrix operations.
+// A matrix struct is used to create new matrixes and operations are
+// performed using this structure.
 package matrix
 
 import (
 	"errors"
 )
 
-// Matrix is the main matrix data structure
+// Matrix is the main matrix data structure.
 type Matrix struct {
 	rowCount int
 	colCount int
 	matrix   [][]float64
 }
 
-// NewMatrix creates a new matrix with the given row, col and initial values.
+// NewMatrix creates a new matrix struct with the
+// given row, col count and initial values.
 func NewMatrix(rowCount, colCount int, values []float64) (*Matrix, error) {
 	if values != nil && len(values) != rowCount*colCount {
-		return nil, errors.New(MatrixInitialValuesDimensionsMismatch)
+		return nil, errors.New("initial values and dimensions of matrix do not match")
 	}
 
 	matrix := make([][]float64, rowCount)
@@ -38,30 +42,31 @@ func NewMatrix(rowCount, colCount int, values []float64) (*Matrix, error) {
 	return &m, nil
 }
 
-// RowAt returns the row with the given row index
+// RowAt returns the row with the given row index.
 func (m Matrix) RowAt(rowIndex int) ([]float64, error) {
 	if rowIndex >= m.rowCount {
-		return nil, errors.New(MatrixRowIndexOutOfRange)
+		return nil, errors.New("given row index is out of range in given matrix")
 	}
 	return m.matrix[rowIndex], nil
 }
 
-// ColAt returns the column with the given column index
+// ColAt returns the column with the given column index.
 func (m Matrix) ColAt(colIndex int) ([]float64, error) {
 	var col []float64
 	for i := 0; i < m.rowCount; i++ {
 		if colIndex >= m.colCount {
-			return nil, errors.New(MatrixColIndexOutOfRange)
+			return nil, errors.New("given col index is out of range in given matrix")
 		}
 		col = append(col, m.matrix[i][colIndex])
 	}
 	return col, nil
 }
 
-// Dot does matrix multiplication and assigns the result to target matrix
+// Dot does matrix multiplication and returns a new
+// matrix for the result and returns it.
 func Dot(x, y *Matrix) (*Matrix, error) {
 	if x.colCount != y.rowCount {
-		return nil, errors.New(MatrixDotImpossibleDueToDimensions)
+		return nil, errors.New("unable to perform dot multiplication due to dimensions of the matrices")
 	}
 
 	out, _ := NewMatrix(x.rowCount, y.colCount, nil)
@@ -79,7 +84,8 @@ func Dot(x, y *Matrix) (*Matrix, error) {
 	return out, nil
 }
 
-// Scale performs scalar multiplication with the given factor
+// Scale performs scalar multiplication with the given factor.
+// Creates a new scaled Matrix struct and returns it.
 func Scale(A float64, x *Matrix) (*Matrix, error) {
 	out, _ := NewMatrix(x.rowCount, x.colCount, nil)
 
@@ -92,7 +98,8 @@ func Scale(A float64, x *Matrix) (*Matrix, error) {
 	return out, nil
 }
 
-// Transpose creates a new transpose matrix for the given matrix
+// Transpose creates a new transpose matrix for the given matrix.
+// Newly created matrix is returned.
 func Transpose(x *Matrix) (*Matrix, error) {
 	var outValues []float64
 	for colID := 0; colID < x.colCount; colID++ {
@@ -106,7 +113,8 @@ func Transpose(x *Matrix) (*Matrix, error) {
 	return out, nil
 }
 
-// DeepEqual checks if two given matrixes are exactly the same
+// DeepEqual checks if two given matrixes are exactly the same.
+// Returns boolean.
 func DeepEqual(x, y *Matrix) bool {
 	if x.rowCount != y.rowCount || x.colCount != y.colCount {
 		return false

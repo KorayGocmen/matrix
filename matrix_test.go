@@ -42,7 +42,7 @@ func TestUnsuccessfulCreateMatrix(t *testing.T) {
 		4, -1,
 		0, 5,
 	})
-	if err1 == nil || err1.Error() != MatrixInitialValuesDimensionsMismatch {
+	if err1 == nil {
 		t.Errorf("row or col count was wrong")
 	}
 
@@ -52,7 +52,7 @@ func TestUnsuccessfulCreateMatrix(t *testing.T) {
 		4, 2,
 		0,
 	})
-	if err2 == nil || err2.Error() != MatrixInitialValuesDimensionsMismatch {
+	if err2 == nil {
 		t.Errorf("row or col count was wrong")
 	}
 }
@@ -93,7 +93,7 @@ func TestUnsuccessfulRowAt(t *testing.T) {
 	})
 
 	_, err1 := x1.RowAt(2)
-	if err1.Error() != MatrixRowIndexOutOfRange {
+	if err1 == nil {
 		t.Errorf("row at error")
 	}
 }
@@ -134,7 +134,7 @@ func TestUnsuccessfulColAt(t *testing.T) {
 	})
 
 	_, err1 := x1.ColAt(2)
-	if err1.Error() != MatrixColIndexOutOfRange {
+	if err1 == nil {
 		t.Errorf("row at error")
 	}
 }
@@ -193,7 +193,7 @@ func TestUnsuccessfulDotProduct(t *testing.T) {
 
 	_, err1 := Dot(x1, x2)
 
-	if err1.Error() != MatrixDotImpossibleDueToDimensions {
+	if err1 == nil {
 		t.Errorf("dot product error")
 	}
 }
