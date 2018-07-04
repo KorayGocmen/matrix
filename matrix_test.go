@@ -289,6 +289,41 @@ func TestUnsuccessfulDeepEqual(t *testing.T) {
 	}
 }
 
+func TestSuccessfulTranspose(t *testing.T) {
+	x1, _ := NewMatrix(2, 3, []float64{
+		1, 2, 3,
+		5, 6, 7,
+	})
+
+	expectedResult1, _ := NewMatrix(3, 2, []float64{
+		1, 5,
+		2, 6,
+		3, 7,
+	})
+
+	result1, err1 := Transpose(x1)
+
+	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+		t.Errorf("transpose error")
+	}
+
+	x2, _ := NewMatrix(2, 2, []float64{
+		1, 2,
+		5, 6,
+	})
+
+	expectedResult2, _ := NewMatrix(2, 2, []float64{
+		1, 5,
+		2, 6,
+	})
+
+	result2, err2 := Transpose(x2)
+
+	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+		t.Errorf("transpose error")
+	}
+}
+
 func arrayEqual(arr1, arr2 []float64) bool {
 	if len(arr1) != len(arr2) {
 		return false

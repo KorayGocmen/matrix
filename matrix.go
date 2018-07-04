@@ -92,6 +92,20 @@ func Scale(A float64, x *Matrix) (*Matrix, error) {
 	return out, nil
 }
 
+// Transpose creates a new transpose matrix for the given matrix
+func Transpose(x *Matrix) (*Matrix, error) {
+	var outValues []float64
+	for colID := 0; colID < x.colCount; colID++ {
+		col, _ := x.ColAt(colID)
+		for _, val := range col {
+			outValues = append(outValues, val)
+		}
+	}
+
+	out, _ := NewMatrix(x.colCount, x.rowCount, outValues)
+	return out, nil
+}
+
 // DeepEqual checks if two given matrixes are exactly the same
 func DeepEqual(x, y *Matrix) bool {
 	if x.rowCount != y.rowCount || x.colCount != y.colCount {
