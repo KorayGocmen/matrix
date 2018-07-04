@@ -22,4 +22,5 @@ transposedX, _ := Transpose(x)
 dotProduct, _ := Dot(x, y)
 ```
 
+---
 100% Test coverage
