@@ -10,26 +10,41 @@ Package matrix implements a simple library for matrix operations. A matrix struc
 https://godoc.org/github.com/KorayGocmen/matrix
 
 ```go
-x, _ := NewMatrix(2, 2, []float64{
-  1, 2,
-  3, 4,
-})
+package main
 
-y, _ := NewMatrix(2, 2, []float64{
-  5, 6,
-  7, 8,
-})
+import (
+	"fmt"
 
-xPlusY, _ := Add(x, y)
+	"github.com/koraygocmen/matrix"
+)
 
-xMinusY, _ := Subtract(x, y)
+func main() {
 
-scaledX, _ := Scale(2, x)
+	x, _ := matrix.New(2, 2, []float64{
+		1, 2,
+		3, 4,
+	})
 
-transposedX, _ := Transpose(x)
+	y, _ := matrix.New(2, 2, []float64{
+		5, 6,
+		7, 8,
+	})
 
-dotProduct, _ := Dot(x, y)
+	xPlusY, _ := matrix.Add(x, y)
+	fmt.Println(xPlusY)
 
+	xMinusY, _ := matrix.Subtract(x, y)
+	fmt.Println(xMinusY)
+
+	scaledX, _ := matrix.Scale(2, x)
+	fmt.Println(scaledX)
+
+	transposedX, _ := matrix.Transpose(x)
+	fmt.Println(transposedX)
+
+	dotProduct, _ := matrix.Dot(x, y)
+	fmt.Println(dotProduct)
+}
 ```
 
 ---

@@ -15,9 +15,9 @@ type Matrix struct {
 	Matrix   [][]float64
 }
 
-// NewMatrix creates a new matrix struct with the
+// New creates a new matrix struct with the
 // given row, col count and initial values.
-func NewMatrix(rowCount, colCount int, values []float64) (*Matrix, error) {
+func New(rowCount, colCount int, values []float64) (*Matrix, error) {
 	if values != nil && len(values) != rowCount*colCount {
 		return nil, errors.New("initial values and dimensions of matrix do not match")
 	}
@@ -72,7 +72,7 @@ func Dot(x, y *Matrix) (*Matrix, error) {
 	}
 
 	var wg sync.WaitGroup
-	out, _ := NewMatrix(x.RowCount, y.ColCount, nil)
+	out, _ := New(x.RowCount, y.ColCount, nil)
 
 	for rowID := 0; rowID < x.RowCount; rowID++ {
 		row, _ := x.RowAt(rowID)
@@ -95,7 +95,7 @@ func Dot(x, y *Matrix) (*Matrix, error) {
 // Scale performs scalar multiplication with the given factor.
 // Creates a new scaled Matrix struct and returns it.
 func Scale(A float64, x *Matrix) (*Matrix, error) {
-	out, _ := NewMatrix(x.RowCount, x.ColCount, nil)
+	out, _ := New(x.RowCount, x.ColCount, nil)
 
 	for rowID := 0; rowID < x.RowCount; rowID++ {
 		for colID := 0; colID < x.ColCount; colID++ {
@@ -117,7 +117,7 @@ func Transpose(x *Matrix) (*Matrix, error) {
 		}
 	}
 
-	out, _ := NewMatrix(x.ColCount, x.RowCount, outValues)
+	out, _ := New(x.ColCount, x.RowCount, outValues)
 	return out, nil
 }
 
@@ -146,7 +146,7 @@ func Add(x, y *Matrix) (*Matrix, error) {
 		return nil, errors.New("unable to perform matrix sum due to matrix dimensions")
 	}
 
-	out, _ := NewMatrix(x.RowCount, x.ColCount, nil)
+	out, _ := New(x.RowCount, x.ColCount, nil)
 	for rowID := 0; rowID < x.RowCount; rowID++ {
 		for colID := 0; colID < x.ColCount; colID++ {
 			out.Matrix[rowID][colID] = x.Matrix[rowID][colID] + y.Matrix[rowID][colID]

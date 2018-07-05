@@ -7,7 +7,7 @@ import (
 func TestSuccessfulCreateMatrix(t *testing.T) {
 	rowCount1 := 2
 	colCount1 := 2
-	x1, _ := NewMatrix(rowCount1, colCount1, []float64{
+	x1, _ := New(rowCount1, colCount1, []float64{
 		4, -1,
 		0, 5,
 	})
@@ -17,7 +17,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 
 	rowCount2 := 2
 	colCount2 := 1
-	x2, _ := NewMatrix(rowCount2, colCount2, []float64{
+	x2, _ := New(rowCount2, colCount2, []float64{
 		1,
 		2,
 	})
@@ -27,7 +27,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 
 	rowCount3 := 1
 	colCount3 := 2
-	x3, _ := NewMatrix(rowCount3, colCount3, []float64{
+	x3, _ := New(rowCount3, colCount3, []float64{
 		1, 2,
 	})
 	if x3.RowCount != rowCount3 || x3.ColCount != colCount3 {
@@ -38,7 +38,7 @@ func TestSuccessfulCreateMatrix(t *testing.T) {
 func TestUnsuccessfulCreateMatrix(t *testing.T) {
 	rowCount1 := 2
 	colCount1 := 3
-	_, err1 := NewMatrix(rowCount1, colCount1, []float64{
+	_, err1 := New(rowCount1, colCount1, []float64{
 		4, -1,
 		0, 5,
 	})
@@ -48,7 +48,7 @@ func TestUnsuccessfulCreateMatrix(t *testing.T) {
 
 	rowCount2 := 1
 	colCount2 := 2
-	_, err2 := NewMatrix(rowCount2, colCount2, []float64{
+	_, err2 := New(rowCount2, colCount2, []float64{
 		4, 2,
 		0,
 	})
@@ -58,11 +58,11 @@ func TestUnsuccessfulCreateMatrix(t *testing.T) {
 }
 
 func TestSuccessfulRowAt(t *testing.T) {
-	x1, _ := NewMatrix(2, 2, []float64{
+	x1, _ := New(2, 2, []float64{
 		4, -1,
 		0, 5,
 	})
-	x2, _ := NewMatrix(2, 3, []float64{
+	x2, _ := New(2, 3, []float64{
 		1, 8, 0,
 		6, -2, 3,
 	})
@@ -87,7 +87,7 @@ func TestSuccessfulRowAt(t *testing.T) {
 }
 
 func TestUnsuccessfulRowAt(t *testing.T) {
-	x1, _ := NewMatrix(2, 2, []float64{
+	x1, _ := New(2, 2, []float64{
 		4, -1,
 		0, 5,
 	})
@@ -99,11 +99,11 @@ func TestUnsuccessfulRowAt(t *testing.T) {
 }
 
 func TestSuccessfulColAt(t *testing.T) {
-	x1, _ := NewMatrix(2, 2, []float64{
+	x1, _ := New(2, 2, []float64{
 		4, -1,
 		0, 5,
 	})
-	x2, _ := NewMatrix(2, 3, []float64{
+	x2, _ := New(2, 3, []float64{
 		1, 8, 0,
 		6, -2, 3,
 	})
@@ -128,7 +128,7 @@ func TestSuccessfulColAt(t *testing.T) {
 }
 
 func TestUnsuccessfulColAt(t *testing.T) {
-	x1, _ := NewMatrix(2, 2, []float64{
+	x1, _ := New(2, 2, []float64{
 		4, -1,
 		0, 5,
 	})
@@ -140,16 +140,16 @@ func TestUnsuccessfulColAt(t *testing.T) {
 }
 
 func TestSuccessfulDotProduct(t *testing.T) {
-	x1, _ := NewMatrix(2, 3, []float64{
+	x1, _ := New(2, 3, []float64{
 		1, 2, 3,
 		4, 5, 6,
 	})
-	x2, _ := NewMatrix(3, 2, []float64{
+	x2, _ := New(3, 2, []float64{
 		7, 8,
 		9, 10,
 		11, 12,
 	})
-	expectedResult1, _ := NewMatrix(2, 2, []float64{
+	expectedResult1, _ := New(2, 2, []float64{
 		58, 64,
 		139, 154,
 	})
@@ -160,15 +160,15 @@ func TestSuccessfulDotProduct(t *testing.T) {
 		t.Errorf("dot product error")
 	}
 
-	x3, _ := NewMatrix(2, 2, []float64{
+	x3, _ := New(2, 2, []float64{
 		4, -1,
 		0, 5,
 	})
-	x4, _ := NewMatrix(2, 3, []float64{
+	x4, _ := New(2, 3, []float64{
 		1, 8, 0,
 		6, -2, 3,
 	})
-	expectedResult2, _ := NewMatrix(2, 3, []float64{
+	expectedResult2, _ := New(2, 3, []float64{
 		-2, 34, -3,
 		30, -10, 15,
 	})
@@ -181,11 +181,11 @@ func TestSuccessfulDotProduct(t *testing.T) {
 }
 
 func TestUnsuccessfulDotProduct(t *testing.T) {
-	x1, _ := NewMatrix(2, 4, []float64{
+	x1, _ := New(2, 4, []float64{
 		1, 2, 3, 4,
 		5, 6, 7, 8,
 	})
-	x2, _ := NewMatrix(3, 2, []float64{
+	x2, _ := New(3, 2, []float64{
 		7, 8,
 		9, 10,
 		11, 12,
@@ -199,12 +199,12 @@ func TestUnsuccessfulDotProduct(t *testing.T) {
 }
 
 func TestSuccessfulScale(t *testing.T) {
-	x1, _ := NewMatrix(2, 3, []float64{
+	x1, _ := New(2, 3, []float64{
 		1, 2, 3,
 		5, 6, 7,
 	})
 
-	expectedResult1, _ := NewMatrix(2, 3, []float64{
+	expectedResult1, _ := New(2, 3, []float64{
 		3, 6, 9,
 		15, 18, 21,
 	})
@@ -215,12 +215,12 @@ func TestSuccessfulScale(t *testing.T) {
 		t.Errorf("scale error")
 	}
 
-	x2, _ := NewMatrix(2, 2, []float64{
+	x2, _ := New(2, 2, []float64{
 		1, 2,
 		5, 6,
 	})
 
-	expectedResult2, _ := NewMatrix(2, 2, []float64{
+	expectedResult2, _ := New(2, 2, []float64{
 		-2, -4,
 		-10, -12,
 	})
@@ -232,12 +232,12 @@ func TestSuccessfulScale(t *testing.T) {
 	}
 }
 func TestSuccessfulDeepEqual(t *testing.T) {
-	x1, _ := NewMatrix(2, 3, []float64{
+	x1, _ := New(2, 3, []float64{
 		1, 2, 3,
 		5, 6, 7,
 	})
 
-	x2, _ := NewMatrix(2, 3, []float64{
+	x2, _ := New(2, 3, []float64{
 		1, 2, 3,
 		5, 6, 7,
 	})
@@ -246,11 +246,11 @@ func TestSuccessfulDeepEqual(t *testing.T) {
 		t.Errorf("deep equal error")
 	}
 
-	x3, _ := NewMatrix(1, 1, []float64{
+	x3, _ := New(1, 1, []float64{
 		1,
 	})
 
-	x4, _ := NewMatrix(1, 1, []float64{
+	x4, _ := New(1, 1, []float64{
 		1,
 	})
 
@@ -260,12 +260,12 @@ func TestSuccessfulDeepEqual(t *testing.T) {
 }
 
 func TestUnsuccessfulDeepEqual(t *testing.T) {
-	x1, _ := NewMatrix(2, 4, []float64{
+	x1, _ := New(2, 4, []float64{
 		1, 2, 3, 4,
 		5, 6, 7, 8,
 	})
 
-	x2, _ := NewMatrix(2, 3, []float64{
+	x2, _ := New(2, 3, []float64{
 		1, 2, 3,
 		5, 6, 7,
 	})
@@ -274,12 +274,12 @@ func TestUnsuccessfulDeepEqual(t *testing.T) {
 		t.Errorf("deep equal error")
 	}
 
-	x3, _ := NewMatrix(2, 2, []float64{
+	x3, _ := New(2, 2, []float64{
 		1, 2,
 		3, 4,
 	})
 
-	x4, _ := NewMatrix(2, 2, []float64{
+	x4, _ := New(2, 2, []float64{
 		1, 2,
 		3, 5,
 	})
@@ -290,12 +290,12 @@ func TestUnsuccessfulDeepEqual(t *testing.T) {
 }
 
 func TestSuccessfulTranspose(t *testing.T) {
-	x1, _ := NewMatrix(2, 3, []float64{
+	x1, _ := New(2, 3, []float64{
 		1, 2, 3,
 		5, 6, 7,
 	})
 
-	expectedResult1, _ := NewMatrix(3, 2, []float64{
+	expectedResult1, _ := New(3, 2, []float64{
 		1, 5,
 		2, 6,
 		3, 7,
@@ -307,12 +307,12 @@ func TestSuccessfulTranspose(t *testing.T) {
 		t.Errorf("transpose error")
 	}
 
-	x2, _ := NewMatrix(2, 2, []float64{
+	x2, _ := New(2, 2, []float64{
 		1, 2,
 		5, 6,
 	})
 
-	expectedResult2, _ := NewMatrix(2, 2, []float64{
+	expectedResult2, _ := New(2, 2, []float64{
 		1, 5,
 		2, 6,
 	})
@@ -325,17 +325,17 @@ func TestSuccessfulTranspose(t *testing.T) {
 }
 
 func TestSuccessfulAdd(t *testing.T) {
-	x1, _ := NewMatrix(3, 2, []float64{
+	x1, _ := New(3, 2, []float64{
 		1, 3,
 		1, 0,
 		1, 2,
 	})
-	x2, _ := NewMatrix(3, 2, []float64{
+	x2, _ := New(3, 2, []float64{
 		0, 0,
 		7, 5,
 		2, 1,
 	})
-	expectedResult1, _ := NewMatrix(3, 2, []float64{
+	expectedResult1, _ := New(3, 2, []float64{
 		1, 3,
 		8, 5,
 		3, 3,
@@ -346,17 +346,17 @@ func TestSuccessfulAdd(t *testing.T) {
 		t.Errorf("add error")
 	}
 
-	x3, _ := NewMatrix(3, 2, []float64{
+	x3, _ := New(3, 2, []float64{
 		1, 3,
 		1, 0,
 		1, 2,
 	})
-	x4, _ := NewMatrix(3, 2, []float64{
+	x4, _ := New(3, 2, []float64{
 		0, 0,
 		-7, -5,
 		-2, -1,
 	})
-	expectedResult2, _ := NewMatrix(3, 2, []float64{
+	expectedResult2, _ := New(3, 2, []float64{
 		1, 3,
 		-6, -5,
 		-1, 1,
@@ -369,11 +369,11 @@ func TestSuccessfulAdd(t *testing.T) {
 }
 
 func TestUnsuccessfulAdd(t *testing.T) {
-	x1, _ := NewMatrix(2, 4, []float64{
+	x1, _ := New(2, 4, []float64{
 		1, 2, 3, 4,
 		5, 6, 7, 8,
 	})
-	x2, _ := NewMatrix(3, 2, []float64{
+	x2, _ := New(3, 2, []float64{
 		7, 8,
 		9, 10,
 		11, 12,
@@ -387,15 +387,15 @@ func TestUnsuccessfulAdd(t *testing.T) {
 }
 
 func TestSuccessfulSubtract(t *testing.T) {
-	x1, _ := NewMatrix(2, 3, []float64{
+	x1, _ := New(2, 3, []float64{
 		8, 4, 2,
 		6, 1, 5,
 	})
-	x2, _ := NewMatrix(2, 3, []float64{
+	x2, _ := New(2, 3, []float64{
 		3, 10, 4,
 		5, 6, 1,
 	})
-	expectedResult1, _ := NewMatrix(2, 3, []float64{
+	expectedResult1, _ := New(2, 3, []float64{
 		5, -6, -2,
 		1, -5, 4,
 	})
@@ -405,15 +405,15 @@ func TestSuccessfulSubtract(t *testing.T) {
 		t.Errorf("subtract error")
 	}
 
-	x3, _ := NewMatrix(3, 2, []float64{
+	x3, _ := New(3, 2, []float64{
 		-1, 2, 0,
 		0, 3, 6,
 	})
-	x4, _ := NewMatrix(3, 2, []float64{
+	x4, _ := New(3, 2, []float64{
 		0, -4, 3,
 		9, -4, -3,
 	})
-	expectedResult2, _ := NewMatrix(3, 2, []float64{
+	expectedResult2, _ := New(3, 2, []float64{
 		-1, 6, -3,
 		-9, 7, 9,
 	})
@@ -425,11 +425,11 @@ func TestSuccessfulSubtract(t *testing.T) {
 }
 
 func TestUnsuccessfulSubtract(t *testing.T) {
-	x1, _ := NewMatrix(2, 4, []float64{
+	x1, _ := New(2, 4, []float64{
 		1, 2, 3, 4,
 		5, 6, 7, 8,
 	})
-	x2, _ := NewMatrix(3, 2, []float64{
+	x2, _ := New(3, 2, []float64{
 		7, 8,
 		9, 10,
 		11, 12,

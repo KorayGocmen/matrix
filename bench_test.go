@@ -16,8 +16,8 @@ func BenchmarkDotProduct(b *testing.B) {
 		}
 	}
 
-	x1, _ := NewMatrix(squareMatrixWidth, squareMatrixWidth, firstMatrixValues)
-	x2, _ := NewMatrix(squareMatrixWidth, squareMatrixWidth, secondMatrixValues)
+	x1, _ := New(squareMatrixWidth, squareMatrixWidth, firstMatrixValues)
+	x2, _ := New(squareMatrixWidth, squareMatrixWidth, secondMatrixValues)
 
 	Dot(x1, x2)
 }
@@ -32,7 +32,7 @@ func BenchmarkScale(b *testing.B) {
 		}
 	}
 
-	x, _ := NewMatrix(squareMatrixWidth, squareMatrixWidth, matrixValues)
+	x, _ := New(squareMatrixWidth, squareMatrixWidth, matrixValues)
 
 	Scale(rand.Float64(), x)
 }
