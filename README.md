@@ -1,4 +1,9 @@
 # matrix
+
+Package matrix implements a simple library for matrix operations. A matrix struct is used to create new matrixes and operations are performed using this structure.
+
+100% Test coverage
+
 ---
 #### Full Documentation:
 
@@ -28,4 +33,7 @@ dotProduct, _ := Dot(x, y)
 ```
 
 ---
-100% Test coverage
+
+### License
+
+Released under the [MIT License](https://github.com/KorayGocmen/matrix/blob/master/LICENSE).
