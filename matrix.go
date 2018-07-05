@@ -5,6 +5,7 @@ package matrix
 
 import (
 	"errors"
+	"sync"
 )
 
 // Matrix is the main matrix data structure.
@@ -65,22 +66,29 @@ func (m Matrix) ColAt(colIndex int) ([]float64, error) {
 // Dot does matrix multiplication and returns a new
 // matrix for the result and returns it.
 func Dot(x, y *Matrix) (*Matrix, error) {
+
 	if x.ColCount != y.RowCount {
 		return nil, errors.New("unable to perform dot multiplication due to dimensions of the matrices")
 	}
 
+	var wg sync.WaitGroup
 	out, _ := NewMatrix(x.RowCount, y.ColCount, nil)
 
 	for rowID := 0; rowID < x.RowCount; rowID++ {
 		row, _ := x.RowAt(rowID)
-		for colID := 0; colID < y.ColCount; colID++ {
-			col, _ := y.ColAt(colID)
-			for i := 0; i < len(row); i++ {
-				out.Matrix[rowID][colID] += row[i] * col[i]
+		wg.Add(1)
+		go (func(rowID int, row []float64, out *Matrix) {
+			for colID := 0; colID < y.ColCount; colID++ {
+				col, _ := y.ColAt(colID)
+				for i := 0; i < len(row); i++ {
+					out.Matrix[rowID][colID] += row[i] * col[i]
+				}
 			}
-		}
+			wg.Done()
+		})(rowID, row, out)
 	}
 
+	wg.Wait()
 	return out, nil
 }
 
