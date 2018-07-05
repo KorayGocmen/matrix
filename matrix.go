@@ -121,24 +121,6 @@ func Transpose(x *Matrix) (*Matrix, error) {
 	return out, nil
 }
 
-// DeepEqual checks if two given matrixes are exactly the same.
-// Returns boolean.
-func DeepEqual(x, y *Matrix) bool {
-	if x.RowCount != y.RowCount || x.ColCount != y.ColCount {
-		return false
-	}
-
-	for rowID := 0; rowID < x.RowCount; rowID++ {
-		for colID := 0; colID < x.ColCount; colID++ {
-			if x.Matrix[rowID][colID] != y.Matrix[rowID][colID] {
-				return false
-			}
-		}
-	}
-
-	return true
-}
-
 // Add adds two matrixes.
 // Returns the result in a new matrix struct.
 func Add(x, y *Matrix) (*Matrix, error) {

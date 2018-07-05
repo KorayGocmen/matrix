@@ -156,7 +156,7 @@ func TestSuccessfulDotProduct(t *testing.T) {
 
 	result1, err1 := Dot(x1, x2)
 
-	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+	if err1 != nil || !deepEqual(expectedResult1, result1) {
 		t.Errorf("dot product error")
 	}
 
@@ -175,7 +175,7 @@ func TestSuccessfulDotProduct(t *testing.T) {
 
 	result2, err2 := Dot(x3, x4)
 
-	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+	if err2 != nil || !deepEqual(expectedResult2, result2) {
 		t.Errorf("dot product error")
 	}
 }
@@ -211,7 +211,7 @@ func TestSuccessfulScale(t *testing.T) {
 
 	result1, err1 := Scale(3, x1)
 
-	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+	if err1 != nil || !deepEqual(expectedResult1, result1) {
 		t.Errorf("scale error")
 	}
 
@@ -227,7 +227,7 @@ func TestSuccessfulScale(t *testing.T) {
 
 	result2, err2 := Scale(-2, x2)
 
-	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+	if err2 != nil || !deepEqual(expectedResult2, result2) {
 		t.Errorf("scale error")
 	}
 }
@@ -242,7 +242,7 @@ func TestSuccessfulDeepEqual(t *testing.T) {
 		5, 6, 7,
 	})
 
-	if !DeepEqual(x1, x2) {
+	if !deepEqual(x1, x2) {
 		t.Errorf("deep equal error")
 	}
 
@@ -254,7 +254,7 @@ func TestSuccessfulDeepEqual(t *testing.T) {
 		1,
 	})
 
-	if !DeepEqual(x3, x4) {
+	if !deepEqual(x3, x4) {
 		t.Errorf("deep equal error")
 	}
 }
@@ -270,7 +270,7 @@ func TestUnsuccessfulDeepEqual(t *testing.T) {
 		5, 6, 7,
 	})
 
-	if DeepEqual(x1, x2) {
+	if deepEqual(x1, x2) {
 		t.Errorf("deep equal error")
 	}
 
@@ -284,7 +284,7 @@ func TestUnsuccessfulDeepEqual(t *testing.T) {
 		3, 5,
 	})
 
-	if DeepEqual(x3, x4) {
+	if deepEqual(x3, x4) {
 		t.Errorf("deep equal error")
 	}
 }
@@ -303,7 +303,7 @@ func TestSuccessfulTranspose(t *testing.T) {
 
 	result1, err1 := Transpose(x1)
 
-	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+	if err1 != nil || !deepEqual(expectedResult1, result1) {
 		t.Errorf("transpose error")
 	}
 
@@ -319,7 +319,7 @@ func TestSuccessfulTranspose(t *testing.T) {
 
 	result2, err2 := Transpose(x2)
 
-	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+	if err2 != nil || !deepEqual(expectedResult2, result2) {
 		t.Errorf("transpose error")
 	}
 }
@@ -342,7 +342,7 @@ func TestSuccessfulAdd(t *testing.T) {
 	})
 
 	result1, err1 := Add(x1, x2)
-	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+	if err1 != nil || !deepEqual(expectedResult1, result1) {
 		t.Errorf("add error")
 	}
 
@@ -363,7 +363,7 @@ func TestSuccessfulAdd(t *testing.T) {
 	})
 
 	result2, err2 := Add(x3, x4)
-	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+	if err2 != nil || !deepEqual(expectedResult2, result2) {
 		t.Errorf("add error")
 	}
 }
@@ -401,7 +401,7 @@ func TestSuccessfulSubtract(t *testing.T) {
 	})
 
 	result1, err1 := Subtract(x1, x2)
-	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+	if err1 != nil || !deepEqual(expectedResult1, result1) {
 		t.Errorf("subtract error")
 	}
 
@@ -419,7 +419,7 @@ func TestSuccessfulSubtract(t *testing.T) {
 	})
 
 	result2, err2 := Subtract(x3, x4)
-	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+	if err2 != nil || !deepEqual(expectedResult2, result2) {
 		t.Errorf("subtract error")
 	}
 }
@@ -451,5 +451,21 @@ func arrayEqual(arr1, arr2 []float64) bool {
 			return false
 		}
 	}
+	return true
+}
+
+func deepEqual(x, y *Matrix) bool {
+	if x.RowCount != y.RowCount || x.ColCount != y.ColCount {
+		return false
+	}
+
+	for rowID := 0; rowID < x.RowCount; rowID++ {
+		for colID := 0; colID < x.ColCount; colID++ {
+			if x.Matrix[rowID][colID] != y.Matrix[rowID][colID] {
+				return false
+			}
+		}
+	}
+
 	return true
 }
