@@ -130,3 +130,20 @@ func DeepEqual(x, y *Matrix) bool {
 
 	return true
 }
+
+// Sum adds two matrixes.
+// Returns the result in a new matrix struct.
+func Sum(x, y *Matrix) (*Matrix, error) {
+	if x.RowCount != y.RowCount || x.ColCount != y.ColCount {
+		return nil, errors.New("unable to perform matrix sum due to matrix dimensions")
+	}
+
+	out, _ := NewMatrix(x.RowCount, x.ColCount, nil)
+	for rowID := 0; rowID < x.RowCount; rowID++ {
+		for colID := 0; colID < x.ColCount; colID++ {
+			out.Matrix[rowID][colID] = x.Matrix[rowID][colID] + y.Matrix[rowID][colID]
+		}
+	}
+
+	return out, nil
+}

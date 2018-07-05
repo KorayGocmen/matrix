@@ -324,6 +324,68 @@ func TestSuccessfulTranspose(t *testing.T) {
 	}
 }
 
+func TestSuccessfulSum(t *testing.T) {
+	x1, _ := NewMatrix(3, 2, []float64{
+		1, 3,
+		1, 0,
+		1, 2,
+	})
+	x2, _ := NewMatrix(3, 2, []float64{
+		0, 0,
+		7, 5,
+		2, 1,
+	})
+	expectedResult1, _ := NewMatrix(3, 2, []float64{
+		1, 3,
+		8, 5,
+		3, 3,
+	})
+
+	result1, err1 := Sum(x1, x2)
+	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+		t.Errorf("sum error")
+	}
+
+	x3, _ := NewMatrix(3, 2, []float64{
+		1, 3,
+		1, 0,
+		1, 2,
+	})
+	x4, _ := NewMatrix(3, 2, []float64{
+		0, 0,
+		-7, -5,
+		-2, -1,
+	})
+	expectedResult2, _ := NewMatrix(3, 2, []float64{
+		1, 3,
+		-6, -5,
+		-1, 1,
+	})
+
+	result2, err2 := Sum(x3, x4)
+	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+		t.Errorf("sum error")
+	}
+}
+
+func TestUnsuccessfulSum(t *testing.T) {
+	x1, _ := NewMatrix(2, 4, []float64{
+		1, 2, 3, 4,
+		5, 6, 7, 8,
+	})
+	x2, _ := NewMatrix(3, 2, []float64{
+		7, 8,
+		9, 10,
+		11, 12,
+	})
+
+	_, err1 := Sum(x1, x2)
+
+	if err1 == nil {
+		t.Errorf("dot product error")
+	}
+}
+
 func arrayEqual(arr1, arr2 []float64) bool {
 	if len(arr1) != len(arr2) {
 		return false
