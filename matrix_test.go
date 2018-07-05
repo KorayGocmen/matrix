@@ -324,7 +324,7 @@ func TestSuccessfulTranspose(t *testing.T) {
 	}
 }
 
-func TestSuccessfulSum(t *testing.T) {
+func TestSuccessfulAdd(t *testing.T) {
 	x1, _ := NewMatrix(3, 2, []float64{
 		1, 3,
 		1, 0,
@@ -341,9 +341,9 @@ func TestSuccessfulSum(t *testing.T) {
 		3, 3,
 	})
 
-	result1, err1 := Sum(x1, x2)
+	result1, err1 := Add(x1, x2)
 	if err1 != nil || !DeepEqual(expectedResult1, result1) {
-		t.Errorf("sum error")
+		t.Errorf("add error")
 	}
 
 	x3, _ := NewMatrix(3, 2, []float64{
@@ -362,13 +362,13 @@ func TestSuccessfulSum(t *testing.T) {
 		-1, 1,
 	})
 
-	result2, err2 := Sum(x3, x4)
+	result2, err2 := Add(x3, x4)
 	if err2 != nil || !DeepEqual(expectedResult2, result2) {
-		t.Errorf("sum error")
+		t.Errorf("add error")
 	}
 }
 
-func TestUnsuccessfulSum(t *testing.T) {
+func TestUnsuccessfulAdd(t *testing.T) {
 	x1, _ := NewMatrix(2, 4, []float64{
 		1, 2, 3, 4,
 		5, 6, 7, 8,
@@ -379,10 +379,66 @@ func TestUnsuccessfulSum(t *testing.T) {
 		11, 12,
 	})
 
-	_, err1 := Sum(x1, x2)
+	_, err1 := Add(x1, x2)
 
 	if err1 == nil {
-		t.Errorf("dot product error")
+		t.Errorf("add error")
+	}
+}
+
+func TestSuccessfulSubtract(t *testing.T) {
+	x1, _ := NewMatrix(2, 3, []float64{
+		8, 4, 2,
+		6, 1, 5,
+	})
+	x2, _ := NewMatrix(2, 3, []float64{
+		3, 10, 4,
+		5, 6, 1,
+	})
+	expectedResult1, _ := NewMatrix(2, 3, []float64{
+		5, -6, -2,
+		1, -5, 4,
+	})
+
+	result1, err1 := Subtract(x1, x2)
+	if err1 != nil || !DeepEqual(expectedResult1, result1) {
+		t.Errorf("subtract error")
+	}
+
+	x3, _ := NewMatrix(3, 2, []float64{
+		-1, 2, 0,
+		0, 3, 6,
+	})
+	x4, _ := NewMatrix(3, 2, []float64{
+		0, -4, 3,
+		9, -4, -3,
+	})
+	expectedResult2, _ := NewMatrix(3, 2, []float64{
+		-1, 6, -3,
+		-9, 7, 9,
+	})
+
+	result2, err2 := Subtract(x3, x4)
+	if err2 != nil || !DeepEqual(expectedResult2, result2) {
+		t.Errorf("subtract error")
+	}
+}
+
+func TestUnsuccessfulSubtract(t *testing.T) {
+	x1, _ := NewMatrix(2, 4, []float64{
+		1, 2, 3, 4,
+		5, 6, 7, 8,
+	})
+	x2, _ := NewMatrix(3, 2, []float64{
+		7, 8,
+		9, 10,
+		11, 12,
+	})
+
+	_, err1 := Subtract(x1, x2)
+
+	if err1 == nil {
+		t.Errorf("subtract error")
 	}
 }
 

@@ -131,9 +131,9 @@ func DeepEqual(x, y *Matrix) bool {
 	return true
 }
 
-// Sum adds two matrixes.
+// Add adds two matrixes.
 // Returns the result in a new matrix struct.
-func Sum(x, y *Matrix) (*Matrix, error) {
+func Add(x, y *Matrix) (*Matrix, error) {
 	if x.RowCount != y.RowCount || x.ColCount != y.ColCount {
 		return nil, errors.New("unable to perform matrix sum due to matrix dimensions")
 	}
@@ -146,4 +146,12 @@ func Sum(x, y *Matrix) (*Matrix, error) {
 	}
 
 	return out, nil
+}
+
+// Subtract subtracts two matrixes.
+// Returns the result in a new matrix struct.
+func Subtract(x, y *Matrix) (*Matrix, error) {
+	minusY, _ := Scale(-1, y)
+	result, err := Add(x, minusY)
+	return result, err
 }
