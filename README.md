@@ -15,11 +15,16 @@ y, _ := NewMatrix(2, 2, []float64{
   7, 8,
 })
 
+xPlusY, _ := Add(x, y)
+
+xMinusY, _ := Subtract(x, y)
+
 scaledX, _ := Scale(2, x)
 
 transposedX, _ := Transpose(x)
 
 dotProduct, _ := Dot(x, y)
+
 ```
 
 ---
