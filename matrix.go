@@ -145,3 +145,24 @@ func Subtract(x, y *Matrix) (*Matrix, error) {
 	result, err := Add(x, minusY)
 	return result, err
 }
+
+// AddScalar adds a scalar value to each element in
+// the matrix. Returns a new result matrix.
+func AddScalar(A float64, x *Matrix) (*Matrix, error) {
+	out, _ := New(x.RowCount, x.ColCount, nil)
+
+	for rowID := 0; rowID < x.RowCount; rowID++ {
+		for colID := 0; colID < x.ColCount; colID++ {
+			out.Matrix[rowID][colID] = A + x.Matrix[rowID][colID]
+		}
+	}
+
+	return out, nil
+}
+
+// SubtractScalar subtracts a scalar value to each element
+// in the matrix. Returns a new result matrix.
+func SubtractScalar(A float64, x *Matrix) (*Matrix, error) {
+	out, _ := AddScalar(-1*A, x)
+	return out, nil
+}

@@ -442,6 +442,66 @@ func TestUnsuccessfulSubtract(t *testing.T) {
 	}
 }
 
+func TestSuccessfulAddScalar(t *testing.T) {
+	x1, _ := New(2, 2, []float64{
+		1, 2,
+		5, 6,
+	})
+	expectedResult, _ := New(2, 2, []float64{
+		4, 5,
+		8, 9,
+	})
+
+	result, _ := AddScalar(3, x1)
+	if !deepEqual(expectedResult, result) {
+		t.Errorf("add scalar error")
+	}
+
+	x2, _ := New(2, 3, []float64{
+		1, 2, 3,
+		4, 5, 6,
+	})
+	expectedResult2, _ := New(2, 3, []float64{
+		1.5, 2.5, 3.5,
+		4.5, 5.5, 6.5,
+	})
+
+	result2, _ := AddScalar(0.5, x2)
+	if !deepEqual(expectedResult2, result2) {
+		t.Errorf("add scalar error")
+	}
+}
+
+func TestSuccessfulSubtractScalar(t *testing.T) {
+	x1, _ := New(2, 2, []float64{
+		1, 2,
+		5, 6,
+	})
+	expectedResult, _ := New(2, 2, []float64{
+		0, 1,
+		4, 5,
+	})
+
+	result, _ := SubtractScalar(1, x1)
+	if !deepEqual(expectedResult, result) {
+		t.Errorf("subtract scalar error")
+	}
+
+	x2, _ := New(2, 3, []float64{
+		1, 2, 3,
+		4, 5, 6,
+	})
+	expectedResult2, _ := New(2, 3, []float64{
+		-1, 0, 1,
+		2, 3, 4,
+	})
+
+	result2, _ := SubtractScalar(2, x2)
+	if !deepEqual(expectedResult2, result2) {
+		t.Errorf("subtract scalar error")
+	}
+}
+
 func arrayEqual(arr1, arr2 []float64) bool {
 	if len(arr1) != len(arr2) {
 		return false

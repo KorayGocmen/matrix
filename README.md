@@ -44,6 +44,12 @@ func main() {
 
 	dotProduct, _ := matrix.Dot(x, y)
 	fmt.Println(dotProduct)
+
+	scalarAdded, _ := matrix.AddScalar(2, x)
+	fmt.Println(scalarAdded)
+
+	scalarSubtracted, _ := matrix.SubtractScalar(1, x)
+	fmt.Println(scalarSubtracted)
 }
 ```
 
